@@ -24,7 +24,6 @@ qt_add_qml_module(contactlistexample
         "ContactView.ui.qml"
         "SectionDelegate.ui.qml"
         "ContactList.qml"
-        "designer/Backend/ContactModel.qml"
 )
 
 target_link_libraries(contactlistexample PUBLIC
