@@ -3,13 +3,15 @@
 
 import QtQuick
 import QtQuick.Controls
-import Qt.labs.settings
+import Qt.labs.settings // Deprecated since 6.5, what should I use instead?
 
 ApplicationWindow {
     id: window
 
     property int currentContact: -1
 
+    x: settings.x
+    y: settings.y
     width: settings.width
     height: settings.height
     visible: true
@@ -18,11 +20,15 @@ ApplicationWindow {
     Settings {
         id: settings
         category: 'window'
+        property int x: 50
+        property int y: 50
         property int width: 320
         property int height: 480
     }
 
     function storeSettings() {
+        settings.x = window.x
+        settings.y = window.y
         settings.width = window.width
         settings.height = window.height
     }
