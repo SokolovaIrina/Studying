@@ -11,6 +11,8 @@ GridLayout {
     property alias address: address
     property alias city: city
     property alias number: number
+    property alias company: company
+    property alias position: position
     property int minimumInputSize: 120
     property string placeholderText: qsTr("<enter>")
 
@@ -64,6 +66,32 @@ GridLayout {
 
     TextField {
         id: number
+        Layout.fillWidth: true
+        Layout.minimumWidth: grid.minimumInputSize
+        Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
+        placeholderText: grid.placeholderText
+    }
+
+    Label {
+        text: qsTr("Company")
+        Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
+    }
+
+    TextField {
+        id: company
+        Layout.fillWidth: true
+        Layout.minimumWidth: grid.minimumInputSize
+        Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
+        placeholderText: grid.placeholderText
+    }
+
+    Label {
+        text: qsTr("Position")
+        Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
+    }
+
+    TextField {
+        id: position
         Layout.fillWidth: true
         Layout.minimumWidth: grid.minimumInputSize
         Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
