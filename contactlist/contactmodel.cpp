@@ -31,6 +31,8 @@ QVariant ContactModel::data(const QModelIndex &index, int role) const
         case AddressRole: return m_contacts.at(index.row()).address;
         case CityRole: return m_contacts.at(index.row()).city;
         case NumberRole: return m_contacts.at(index.row()).number;
+        case CompanyRole: return m_contacts.at(index.row()).company;
+        case PositionRole: return m_contacts.at(index.row()).posision;
         default: return QVariant();
     }
     return QVariant();
@@ -50,26 +52,35 @@ QHash<int, QByteArray> ContactModel::roleNames() const
 QVariantMap ContactModel::get(int row) const
 {
     const Contact contact = m_contacts.value(row);
-    return { {"fullName", contact.fullName}, {"address", contact.address}, {"city", contact.city}, {"number", contact.number} };
+    return {
+        {"fullName", contact.fullName},
+        {"address", contact.address},
+        {"city", contact.city},
+        {"number", contact.number},
+        {"company", contact.company},
+        {"posision", contact.posision}
+    };
 }
 
-void ContactModel::append(const QString &fullName, const QString &address, const QString &city, const QString &number)
+void ContactModel::append(const QString &fullName, const QString &address, const QString &city,
+                          const QString &number, const QString &company, const QString &position)
 {
     int row = 0;
     while (row < m_contacts.count() && fullName > m_contacts.at(row).fullName)
         ++row;
     beginInsertRows(QModelIndex(), row, row);
-    m_contacts.insert(row, {fullName, address, city, number});
+    m_contacts.insert(row, {fullName, address, city, number, company, position});
     endInsertRows();
 }
 
-void ContactModel::set(int row, const QString &fullName, const QString &address, const QString &city, const QString &number)
+void ContactModel::set(int row, const QString &fullName, const QString &address, const QString &city,
+                       const QString &number, const QString &company, const QString &position)
 {
     if (row < 0 || row >= m_contacts.count())
         return;
 
-    m_contacts.replace(row, { fullName, address, city, number });
-    dataChanged(index(row, 0), index(row, 0), { FullNameRole, AddressRole, CityRole, NumberRole });
+    m_contacts.replace(row, { fullName, address, city, number, company, position });
+    dataChanged(index(row, 0), index(row, 0), { FullNameRole, AddressRole, CityRole, NumberRole, CompanyRole, PositionRole });
 }
 
 void ContactModel::remove(int row)

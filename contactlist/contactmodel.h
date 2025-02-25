@@ -17,7 +17,9 @@ public:
         FullNameRole = Qt::DisplayRole,
         AddressRole = Qt::UserRole,
         CityRole,
-        NumberRole
+        NumberRole,
+        CompanyRole,
+        PositionRole
     };
     Q_ENUM(ContactRole)
 
@@ -28,8 +30,8 @@ public:
     QHash<int, QByteArray> roleNames() const;
 
     Q_INVOKABLE QVariantMap get(int row) const;
-    Q_INVOKABLE void append(const QString &fullName, const QString &address, const QString  &city, const QString &number);
-    Q_INVOKABLE void set(int row, const QString &fullName, const QString &address, const QString  &city, const QString &number);
+    Q_INVOKABLE void append(const QString &fullName, const QString &address, const QString  &city, const QString &number, const QString &company = "", const QString &position = "");
+    Q_INVOKABLE void set(int row, const QString &fullName, const QString &address, const QString  &city, const QString &number, const QString &company = "", const QString &position = "");
     Q_INVOKABLE void remove(int row);
 
 private:
@@ -38,6 +40,8 @@ private:
         QString address;
         QString city;
         QString number;
+        QString company;
+        QString posision;
     };
 
     QList<Contact> m_contacts;

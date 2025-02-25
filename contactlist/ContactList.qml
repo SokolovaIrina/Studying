@@ -74,4 +74,15 @@ ApplicationWindow {
             contactDialog.createContact()
         }
     }
+
+    RoundButton {
+        text: qsTr("S")
+        highlighted: true
+        anchors.margins: 10
+        anchors.right: parent.right
+        anchors.top: parent.top
+        onClicked: {
+            // TODO: settings
+        }
+    }
 }
