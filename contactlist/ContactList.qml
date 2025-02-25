@@ -3,16 +3,31 @@
 
 import QtQuick
 import QtQuick.Controls
+import Qt.labs.settings
 
 ApplicationWindow {
     id: window
 
     property int currentContact: -1
 
-    width: 320
-    height: 480
+    width: settings.width
+    height: settings.height
     visible: true
     title: qsTr("Contact List")
+
+    Settings {
+        id: settings
+        category: 'window'
+        property int width: 320
+        property int height: 480
+    }
+
+    function storeSettings() {
+        settings.width = window.width
+        settings.height = window.height
+    }
+
+    onClosing: storeSettings()
 
     ContactDialog {
         id: contactDialog
