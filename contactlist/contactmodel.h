@@ -41,7 +41,7 @@ private:
         QString city;
         QString number;
         QString company;
-        QString posision;
+        QString position;
     };
 
     QList<Contact> m_contacts;

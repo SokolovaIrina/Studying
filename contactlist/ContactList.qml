@@ -16,11 +16,11 @@ ApplicationWindow {
 
     ContactDialog {
         id: contactDialog
-        onFinished: function(fullName, address, city, number) {
+        onFinished: function(fullName, address, city, number, company, position) {
             if (window.currentContact === -1)
-                contactView.model.append(fullName, address, city, number)
+                contactView.model.append(fullName, address, city, number, company, position)
             else
-                contactView.model.set(window.currentContact, fullName, address, city, number)
+                contactView.model.set(window.currentContact, fullName, address, city, number, company, position)
         }
     }
 

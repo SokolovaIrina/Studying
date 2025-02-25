@@ -7,13 +7,15 @@ import QtQuick.Controls
 Dialog {
     id: dialog
 
-    signal finished(string fullName, string address, string city, string number)
+    signal finished(string fullName, string address, string city, string number, string company, string position)
 
     function createContact() {
         form.fullName.clear();
         form.address.clear();
         form.city.clear();
         form.number.clear();
+        form.company.clear();
+        form.position.clear();
 
         dialog.title = qsTr("Add Contact");
         dialog.open();
@@ -24,6 +26,8 @@ Dialog {
         form.address.text = contact.address;
         form.city.text = contact.city;
         form.number.text = contact.number;
+        form.company.text = contact.company;
+        form.position.text = contact.position;
 
         dialog.title = qsTr("Edit Contact");
         dialog.open();
@@ -43,7 +47,7 @@ Dialog {
 
     onAccepted: {
         if (form.fullName.text && form.address.text && form.city.text && form.number.text) {
-            finished(form.fullName.text, form.address.text, form.city.text, form.number.text);
+            finished(form.fullName.text, form.address.text, form.city.text, form.number.text, form.company.text, form.position.text);
         }
     }
 }

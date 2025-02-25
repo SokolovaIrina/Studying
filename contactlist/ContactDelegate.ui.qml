@@ -13,6 +13,8 @@ ItemDelegate {
     required property string address
     required property string city
     required property string number
+    required property string company
+    required property string position
 
     contentItem: ColumnLayout {
         spacing: 10
@@ -64,6 +66,30 @@ ItemDelegate {
             Label {
                 text: delegate.number
                 font.bold: true
+                elide: Text.ElideRight
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: qsTr("Company:")
+                Layout.leftMargin: 60
+            }
+
+            Label {
+                text: (delegate.company.length == 0) ? "doesn't set" : delegate.company
+                font.bold: (delegate.company.length == 0) ? false : true
+                elide: Text.ElideRight
+                Layout.fillWidth: true
+            }
+
+            Label {
+                text: qsTr("Position:")
+                Layout.leftMargin: 60
+            }
+
+            Label {
+                text: (delegate.position.length == 0) ? "doesn't set" : delegate.position
+                font.bold: (delegate.position.length == 0) ? false : true
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }

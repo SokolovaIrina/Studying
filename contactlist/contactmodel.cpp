@@ -5,17 +5,15 @@
 
 ContactModel::ContactModel(QObject *parent ) : QAbstractListModel(parent)
 {
-    m_contacts.append({ "Angel Hogan", "Chapel St. 368 ", "Clearwater" , "0311 1823993" });
-    m_contacts.append({ "Felicia Patton", "Annadale Lane 2", "Knoxville" , "0368 1244494" });
-    m_contacts.append({ "Grant Crawford", "Windsor Drive 34", "Riverdale" , "0351 7826892" });
-    m_contacts.append({ "Gretchen Little", "Sunset Drive 348", "Virginia Beach" , "0343 1234991" });
-    m_contacts.append({ "Geoffrey Richards", "University Lane 54", "Trussville" , "0423 2144944" });
-    m_contacts.append({ "Henrietta Chavez", "Via Volto San Luca 3", "Piobesi Torinese" , "0399 2826994" });
-    m_contacts.append({ "Harvey Chandler", "North Squaw Creek 11", "Madisonville" , "0343 1244492" });
+    m_contacts.append({ "Amir Rodrigis", "Ulica Severa 42", "Yurga", "0363 0510499", "Integra", "PM" });
+    m_contacts.append({ "Angel Hogan", "Chapel St. 368 ", "Clearwater", "0311 1823993" });
+    m_contacts.append({ "Felicia Patton", "Annadale Lane 2", "Knoxville", "0368 1244494" });
+    m_contacts.append({ "Henrietta Chavez", "Via Volto San Luca 3", "Piobesi Torinese", "0399 2826994" });
+    m_contacts.append({ "Harvey Chandler", "North Squaw Creek 11", "Madisonville", "0343 1244492" });
     m_contacts.append({ "Miguel Gomez", "Wild Rose Street 13", "Trussville" , "0343 9826996" });
-    m_contacts.append({ "Norma Rodriguez", " Glen Eagles Street  53", "Buffalo" , "0241 5826596" });
-    m_contacts.append({ "Shelia Ramirez", "East Miller Ave 68", "Pickerington" , "0346 4844556" });
-    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani" , "0363 0510490" });
+    m_contacts.append({ "Norma Rodriguez", " Glen Eagles Street  53", "Buffalo", "0241 5826596" });
+    m_contacts.append({ "Shelia Ramirez", "East Miller Ave 68", "Pickerington", "0346 4844556" });
+    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490" });
 }
 
 int ContactModel::rowCount(const QModelIndex &) const
@@ -32,7 +30,7 @@ QVariant ContactModel::data(const QModelIndex &index, int role) const
         case CityRole: return m_contacts.at(index.row()).city;
         case NumberRole: return m_contacts.at(index.row()).number;
         case CompanyRole: return m_contacts.at(index.row()).company;
-        case PositionRole: return m_contacts.at(index.row()).posision;
+        case PositionRole: return m_contacts.at(index.row()).position;
         default: return QVariant();
     }
     return QVariant();
@@ -44,7 +42,9 @@ QHash<int, QByteArray> ContactModel::roleNames() const
         { FullNameRole, "fullName" },
         { AddressRole, "address" },
         { CityRole, "city" },
-        { NumberRole, "number" }
+        { NumberRole, "number" },
+        { CompanyRole, "company" },
+        { PositionRole, "position" }
     };
     return roles;
 }
@@ -58,7 +58,7 @@ QVariantMap ContactModel::get(int row) const
         {"city", contact.city},
         {"number", contact.number},
         {"company", contact.company},
-        {"posision", contact.posision}
+        {"position", contact.position}
     };
 }
 
