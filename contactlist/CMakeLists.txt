@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.16)
 project(contactlist LANGUAGES CXX)
 
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Widgets)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -30,6 +30,7 @@ target_link_libraries(contactlistexample PUBLIC
     Qt6::Core
     Qt6::Gui
     Qt6::Quick
+    Qt6::Widgets
 )
 
 install(TARGETS contactlistexample
