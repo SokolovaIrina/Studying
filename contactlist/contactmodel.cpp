@@ -14,6 +14,7 @@ ContactModel::ContactModel(QObject *parent ) : QAbstractListModel(parent)
     m_contacts.append({ "Norma Rodriguez", " Glen Eagles Street  53", "Buffalo", "0241 5826596" });
     m_contacts.append({ "Shelia Ramirez", "East Miller Ave 68", "Pickerington", "0346 4844556" });
     m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490" });
+    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490" });
 }
 
 int ContactModel::rowCount(const QModelIndex &) const

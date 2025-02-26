@@ -3,8 +3,9 @@
 
 import QtQuick
 import QtQuick.Controls
-import Qt.labs.settings // Deprecated since 6.5, what should I use instead?
+import Qt.labs.settings // Deprecated since 6.5, I should use QSettings instead
 import QtCharts
+import contactlist
 
 ApplicationWindow {
     id: window
@@ -43,23 +44,23 @@ ApplicationWindow {
         anchors.fill: parent
 
         Item {
-            id: firstPage
+            id: contactPage
             property int currentContact: -1
 
             ContactDialog {
                 id: contactDialog
                 onFinished: function(fullName, address, city, number, company, position) {
-                    if (window.currentContact === -1)
+                    if (contactPage.currentContact === -1)
                         contactView.model.append(fullName, address, city, number, company, position)
                     else
-                        contactView.model.set(window.currentContact, fullName, address, city, number, company, position)
+                        contactView.model.set(contactPage.currentContact, fullName, address, city, number, company, position)
                 }
             }
 
             ConfirmDeletionDialog {
                 id: confirmDeletionDialog
                 onAccepted: function() {
-                    contactView.model.remove(window.currentContact)
+                    contactView.model.remove(contactPage.currentContact)
                 }
             }
 
@@ -74,11 +75,11 @@ ApplicationWindow {
                     font.bold: true
                     width: parent.width
                     horizontalAlignment: Qt.AlignHCenter
-                    text: window.currentContact >= 0 ? contactView.model.get(window.currentContact).fullName : ""
+                    text: contactPage.currentContact >= 0 ? contactView.model.get(contactPage.currentContact).fullName : ""
                 }
                 MenuItem {
                     text: qsTr("Edit...")
-                    onTriggered: contactDialog.editContact(contactView.model.get(window.currentContact))
+                    onTriggered: contactDialog.editContact(contactView.model.get(contactPage.currentContact))
                 }
                 MenuItem {
                     text: qsTr("Remove")
@@ -90,7 +91,7 @@ ApplicationWindow {
                 id: contactView
                 anchors.fill: parent
                 onPressAndHold: function(index) {
-                    window.currentContact = index
+                    contactPage.currentContact = index
                     contactMenu.open()
                 }
             }
@@ -102,7 +103,7 @@ ApplicationWindow {
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 onClicked: {
-                    window.currentContact = -1
+                    contactPage.currentContact = -1
                     contactDialog.createContact()
                 }
             }
@@ -119,13 +120,15 @@ ApplicationWindow {
         Item {
             id: thirdPage
 
+            Component.onCompleted: loadSeries()
+
             ChartView {
-                title: "Line Chart"
+                title: "Positions"
                 anchors.fill: parent
                 antialiasing: true
 
-                LineSeries {
-                    name: "Line"
+                ScatterSeries {
+                    id: series
                     XYPoint { x: 0; y: 0 }
                     XYPoint { x: 1.1; y: 2.1 }
                     XYPoint { x: 1.9; y: 3.3 }
@@ -157,6 +160,22 @@ ApplicationWindow {
         anchors.top: parent.top
         onClicked: {
             swipeView.currentIndex = 1
+            loadSeries()
+        }
+    }
+
+    ContactModel {
+            id: contactModel
+
+            onRowsRemoved: console.log("REMOVED")
+            onDataChanged: console.log("CHANGED")
+    }
+
+    function loadSeries() {
+        console.log("loadSeries() func was called");
+        console.log("Model length: " + contactModel.rowCount());
+        for (var i = 0; i < contactModel.rowCount(); i++) {
+            // TODO: fill serias
         }
     }
 }

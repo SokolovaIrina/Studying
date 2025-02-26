@@ -33,9 +33,7 @@ ListView {
         onPressAndHold: listView.pressAndHold(index)
     }
 
-    model: ContactModel {
-        id: contactModel
-    }
+    model: contactModel
 
     ScrollBar.vertical: ScrollBar { }
 }
