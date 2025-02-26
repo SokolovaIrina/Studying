@@ -136,6 +136,7 @@ ApplicationWindow {
                     XYPoint { x: 2.9; y: 4.9 }
                     XYPoint { x: 3.4; y: 3.0 }
                     XYPoint { x: 4.1; y: 3.3 }
+                    XYPoint { x: 15; y: 15 }
                 }
             }
         }
@@ -160,7 +161,6 @@ ApplicationWindow {
         anchors.top: parent.top
         onClicked: {
             swipeView.currentIndex = 1
-            loadSeries()
         }
     }
 
@@ -172,10 +172,11 @@ ApplicationWindow {
     }
 
     function loadSeries() {
-        console.log("loadSeries() func was called");
         console.log("Model length: " + contactModel.rowCount());
         for (var i = 0; i < contactModel.rowCount(); i++) {
             // TODO: fill serias
+            series.append(i, i);
+            console.log(contactModel.get(i).position);
         }
     }
 }
