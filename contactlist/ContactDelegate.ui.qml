@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtCharts
 
 ItemDelegate {
     id: delegate
@@ -14,7 +15,7 @@ ItemDelegate {
     required property string city
     required property string number
     required property string company
-    required property string position
+    required property XYPoint position
 
     contentItem: ColumnLayout {
         spacing: 10
@@ -88,8 +89,8 @@ ItemDelegate {
             }
 
             Label {
-                text: (delegate.position.length == 0) ? "doesn't set" : delegate.position
-                font.bold: (delegate.position.length == 0) ? false : true
+                text: delegate.position.x
+                font.bold: true
                 elide: Text.ElideRight
                 Layout.fillWidth: true
             }

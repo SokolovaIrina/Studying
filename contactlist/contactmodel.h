@@ -6,6 +6,7 @@
 
 #include <QAbstractListModel>
 #include <QQmlEngine>
+#include <QPoint>
 
 class ContactModel : public QAbstractListModel
 {
@@ -30,8 +31,8 @@ public:
     QHash<int, QByteArray> roleNames() const;
 
     Q_INVOKABLE QVariantMap get(int row) const;
-    Q_INVOKABLE void append(const QString &fullName, const QString &address, const QString  &city, const QString &number, const QString &company = "", const QString &position = "");
-    Q_INVOKABLE void set(int row, const QString &fullName, const QString &address, const QString  &city, const QString &number, const QString &company = "", const QString &position = "");
+    Q_INVOKABLE void append(const QString &fullName, const QString &address, const QString  &city, const QString &number, const QString &company = "", const QPoint &position = {});
+    Q_INVOKABLE void set(int row, const QString &fullName, const QString &address, const QString  &city, const QString &number, const QString &company = "", const QPoint &position = {});
     Q_INVOKABLE void remove(int row);
 
 private:
@@ -41,7 +42,7 @@ private:
         QString city;
         QString number;
         QString company;
-        QString position;
+        QPoint position;
     };
 
     QList<Contact> m_contacts;

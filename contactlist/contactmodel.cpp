@@ -5,8 +5,8 @@
 
 ContactModel::ContactModel(QObject *parent ) : QAbstractListModel(parent)
 {
-    m_contacts.append({ "Amir Rodrigis", "Ulica Severa 42", "Yurga", "0363 0510499", "Integra", "PM" });
-    m_contacts.append({ "Angel Hogan", "Chapel St. 368 ", "Clearwater", "0311 1823993" });
+    m_contacts.append({ "Amir Rodrigis", "Ulica Severa 42", "Yurga", "0363 0510499", "Integra", {4, 5} });
+    m_contacts.append({ "Angel Hogan", "Chapel St. 368 ", "Clearwater", "0311 1823993", "Kedr", {3, 2} });
     m_contacts.append({ "Felicia Patton", "Annadale Lane 2", "Knoxville", "0368 1244494" });
     m_contacts.append({ "Henrietta Chavez", "Via Volto San Luca 3", "Piobesi Torinese", "0399 2826994" });
     m_contacts.append({ "Harvey Chandler", "North Squaw Creek 11", "Madisonville", "0343 1244492" });
@@ -64,7 +64,7 @@ QVariantMap ContactModel::get(int row) const
 }
 
 void ContactModel::append(const QString &fullName, const QString &address, const QString &city,
-                          const QString &number, const QString &company, const QString &position)
+                          const QString &number, const QString &company, const QPoint &position)
 {
     int row = 0;
     while (row < m_contacts.count() && fullName > m_contacts.at(row).fullName)
@@ -75,7 +75,7 @@ void ContactModel::append(const QString &fullName, const QString &address, const
 }
 
 void ContactModel::set(int row, const QString &fullName, const QString &address, const QString &city,
-                       const QString &number, const QString &company, const QString &position)
+                       const QString &number, const QString &company, const QPoint &position)
 {
     if (row < 0 || row >= m_contacts.count())
         return;

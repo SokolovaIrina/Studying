@@ -176,7 +176,7 @@ ApplicationWindow {
         for (var i = 0; i < contactModel.rowCount(); i++) {
             // TODO: fill serias
             series.append(i, i);
-            console.log(contactModel.get(i).position);
+            console.log(contactModel.get(i).fullName);
         }
     }
 }
