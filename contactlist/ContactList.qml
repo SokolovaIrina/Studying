@@ -118,6 +118,7 @@ ApplicationWindow {
             Component.onCompleted: loadSeries()
 
             ChartView {
+                id: chartView
                 title: "Positions"
                 anchors.fill: parent
                 antialiasing: true
@@ -141,6 +142,20 @@ ApplicationWindow {
                     axisY: axisY
                 }
             }
+
+            RoundButton {
+                text: qsTr("Img")
+                highlighted: true
+                anchors.margins: 10
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                onClicked: {
+                    chartView.grabToImage(function(result) {
+                        // TODO: Choose the folder and file name
+                        result.saveToFile("something.png");
+                    });
+                }
+            }
         }
     }
 
@@ -153,7 +168,6 @@ ApplicationWindow {
         anchors.bottom: swipeView.bottom
         anchors.horizontalCenter: parent.horizontalCenter
     }
-
 
     RoundButton {
         text: qsTr("S")
