@@ -15,7 +15,7 @@ ItemDelegate {
     required property string city
     required property string number
     required property string company
-    required property XYPoint position
+    required property var position
 
     contentItem: ColumnLayout {
         spacing: 10
@@ -89,7 +89,7 @@ ItemDelegate {
             }
 
             Label {
-                text: delegate.position.x
+                text: delegate.position.x + ":" + delegate.position.y
                 font.bold: true
                 elide: Text.ElideRight
                 Layout.fillWidth: true

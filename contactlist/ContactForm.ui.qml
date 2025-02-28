@@ -90,11 +90,28 @@ GridLayout {
         Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
     }
 
-    TextField {
+    Row {
         id: position
+        property int xval: 0
+        property int yval: 0
         Layout.fillWidth: true
         Layout.minimumWidth: grid.minimumInputSize
-        Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
-        placeholderText: grid.placeholderText
+        Layout.alignment: Qt.AlignLeft | Qt.AlignCenter
+
+        TextField {
+            id: positionX
+            Layout.minimumWidth: grid.minimumInputSize / 2
+            Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
+            placeholderText: "x"
+            text: parent.xval
+        }
+
+        TextField {
+            id: positionY
+            Layout.minimumWidth: grid.minimumInputSize / 2
+            Layout.alignment: Qt.AlignRight | Qt.AlignBaseline
+            placeholderText: "y"
+            text: parent.yval
+        }
     }
 }

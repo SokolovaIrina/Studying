@@ -49,11 +49,13 @@ ApplicationWindow {
 
             ContactDialog {
                 id: contactDialog
-                onFinished: function(fullName, address, city, number, company, position) {
+                onFinished: function(fullName, address, city, number, company, positionX, positionY) {
+                    // TODO: convert positionl
+                    var tempPosition = Qt.point(positionX, positionY)
                     if (contactPage.currentContact === -1)
-                        contactView.model.append(fullName, address, city, number, company, position)
+                        contactView.model.append(fullName, address, city, number, company, tempPosition)
                     else
-                        contactView.model.set(contactPage.currentContact, fullName, address, city, number, company, position)
+                        contactView.model.set(contactPage.currentContact, fullName, address, city, number, company, tempPosition)
                 }
             }
 
@@ -127,16 +129,23 @@ ApplicationWindow {
                 anchors.fill: parent
                 antialiasing: true
 
+                ValueAxis {
+                    id: axisX
+                    min: 0
+                    max: 10
+                    tickCount: 5
+                }
+
+                ValueAxis {
+                    id: axisY
+                    min: -0.5
+                    max: 1.5
+                }
+
                 ScatterSeries {
                     id: series
-                    XYPoint { x: 0; y: 0 }
-                    XYPoint { x: 1.1; y: 2.1 }
-                    XYPoint { x: 1.9; y: 3.3 }
-                    XYPoint { x: 2.1; y: 2.1 }
-                    XYPoint { x: 2.9; y: 4.9 }
-                    XYPoint { x: 3.4; y: 3.0 }
-                    XYPoint { x: 4.1; y: 3.3 }
-                    XYPoint { x: 15; y: 15 }
+                    axisX: axisX
+                    axisY: axisY
                 }
             }
         }
@@ -173,10 +182,27 @@ ApplicationWindow {
 
     function loadSeries() {
         console.log("Model length: " + contactModel.rowCount());
+        var xmax = -2147483648;
+        var xmin = 2147483647;
+        var ymax = -2147483648;
+        var ymin = 2147483647;
         for (var i = 0; i < contactModel.rowCount(); i++) {
-            // TODO: fill serias
-            series.append(i, i);
-            console.log(contactModel.get(i).fullName);
+            var position = contactModel.get(i).position;
+            series.append(position.x, position.y);
+
+            if(position.x > xmax)
+                xmax = position.x;
+            if(position.x < xmin)
+                xmin = position.x;
+            if(position.y > ymax)
+                ymax = position.y;
+            if(position.y < ymin)
+                ymin = position.y;
+
+            axisX.max = xmax;
+            axisX.min = xmin;
+            axisY.max = ymax;
+            axisY.min = ymin;
         }
     }
 }
