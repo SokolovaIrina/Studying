@@ -53,10 +53,11 @@ ApplicationWindow {
                     var tempPosition = Qt.point(positionX, positionY)
                     if (contactPage.currentContact === -1) {
                         contactView.model.append(fullName, address, city, number, company, tempPosition)
-                        // TODO: append new point to series
+                        series.append(positionX, positionY);
                     } else {
                         contactView.model.set(contactPage.currentContact, fullName, address, city, number, company, tempPosition)
-                        // TODO: edint the point of series
+                        series.remove(contactPage.currentContact);
+                        series.insert(contactPage.currentContact, positionX, positionY);
                     }
                 }
             }
@@ -65,6 +66,7 @@ ApplicationWindow {
                 id: confirmDeletionDialog
                 onAccepted: function() {
                     contactView.model.remove(contactPage.currentContact)
+                    series.remove(contactPage.currentContact)
                 }
             }
 
