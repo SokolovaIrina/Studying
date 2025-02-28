@@ -5,16 +5,16 @@
 
 ContactModel::ContactModel(QObject *parent ) : QAbstractListModel(parent)
 {
-    m_contacts.append({ "Amir Rodrigis", "Ulica Severa 42", "Yurga", "0363 0510499", "Integra", {4, 5} });
+    m_contacts.append({ "Amir Rodrigis", "Ulica Severa 42", "Yurga", "0363 0510499", "Integra", {1, 5} });
     m_contacts.append({ "Angel Hogan", "Chapel St. 368 ", "Clearwater", "0311 1823993", "Kedr", {3, 2} });
-    m_contacts.append({ "Felicia Patton", "Annadale Lane 2", "Knoxville", "0368 1244494" });
-    m_contacts.append({ "Henrietta Chavez", "Via Volto San Luca 3", "Piobesi Torinese", "0399 2826994" });
-    m_contacts.append({ "Harvey Chandler", "North Squaw Creek 11", "Madisonville", "0343 1244492" });
-    m_contacts.append({ "Miguel Gomez", "Wild Rose Street 13", "Trussville" , "0343 9826996" });
-    m_contacts.append({ "Norma Rodriguez", " Glen Eagles Street  53", "Buffalo", "0241 5826596" });
-    m_contacts.append({ "Shelia Ramirez", "East Miller Ave 68", "Pickerington", "0346 4844556" });
-    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490" });
-    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490" });
+    m_contacts.append({ "Felicia Patton", "Annadale Lane 2", "Knoxville", "0368 1244494", "Company1", {3, 6} });
+    m_contacts.append({ "Henrietta Chavez", "Via Volto San Luca 3", "Piobesi Torinese", "0399 2826994", "Company2", {3, 7} });
+    m_contacts.append({ "Harvey Chandler", "North Squaw Creek 11", "Madisonville", "0343 1244492", "Company2", {0, 2} });
+    m_contacts.append({ "Miguel Gomez", "Wild Rose Street 13", "Trussville" , "0343 9826996", "Company2", {9, 2} });
+    m_contacts.append({ "Norma Rodriguez", " Glen Eagles Street  53", "Buffalo", "0241 5826596", "Company2", {2, 2} });
+    m_contacts.append({ "Shelia Ramirez", "East Miller Ave 68", "Pickerington", "0346 4844556", "Company2", {11, 11} });
+    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490", "Company2", {21, 7} });
+    m_contacts.append({ "Stephanie Moss", "Piazza Trieste e Trento 77", "Roata Chiusani", "0363 0510490", "Company2", {5, 10} });
 }
 
 int ContactModel::rowCount(const QModelIndex &) const

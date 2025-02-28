@@ -50,12 +50,14 @@ ApplicationWindow {
             ContactDialog {
                 id: contactDialog
                 onFinished: function(fullName, address, city, number, company, positionX, positionY) {
-                    // TODO: convert positionl
                     var tempPosition = Qt.point(positionX, positionY)
-                    if (contactPage.currentContact === -1)
+                    if (contactPage.currentContact === -1) {
                         contactView.model.append(fullName, address, city, number, company, tempPosition)
-                    else
+                        // TODO: append new point to series
+                    } else {
                         contactView.model.set(contactPage.currentContact, fullName, address, city, number, company, tempPosition)
+                        // TODO: edint the point of series
+                    }
                 }
             }
 

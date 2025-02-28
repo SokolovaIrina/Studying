@@ -49,7 +49,7 @@ Dialog {
 
     onAccepted: {
         if (form.fullName.text && form.address.text && form.city.text && form.number.text) {
-            finished(form.fullName.text, form.address.text, form.city.text, form.number.text, form.company.text, form.position.xval, form.position.xval);
+            finished(form.fullName.text, form.address.text, form.city.text, form.number.text, form.company.text, form.position.xval, form.position.yval);
         }
     }
 }

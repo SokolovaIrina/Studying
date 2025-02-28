@@ -103,7 +103,9 @@ GridLayout {
             Layout.minimumWidth: grid.minimumInputSize / 2
             Layout.alignment: Qt.AlignLeft | Qt.AlignBaseline
             placeholderText: "x"
+            validator: IntValidator
             text: parent.xval
+            onTextChanged: parent.xval = text
         }
 
         TextField {
@@ -111,7 +113,9 @@ GridLayout {
             Layout.minimumWidth: grid.minimumInputSize / 2
             Layout.alignment: Qt.AlignRight | Qt.AlignBaseline
             placeholderText: "y"
+            validator: IntValidator
             text: parent.yval
+            onTextChanged: parent.yval = text
         }
     }
 }
