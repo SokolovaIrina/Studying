@@ -3,36 +3,25 @@
 
 import QtQuick
 import QtQuick.Controls
-import Qt.labs.settings // Deprecated since 6.5, I should use QSettings instead
 import QtCharts
 import contactlist
 
 ApplicationWindow {
     id: window
 
-    x: settings.x
-    y: settings.y
-    width: settings.width
-    height: settings.height
+    x: windowsettings.value("x", 200)
+    y: windowsettings.value("y", 200)
+    width: windowsettings.value("width", 320)
+    height: windowsettings.value("height", 480)
     visible: true
     title: qsTr("Contact List")
 
-    Settings {
-        id: settings
-        category: 'window'
-        property int x: 150
-        property int y: 150
-        property int width: 320
-        property int height: 480
-        property int page: 0
-    }
-
     function storeSettings() {
-        settings.x = window.x
-        settings.y = window.y
-        settings.width = window.width
-        settings.height = window.height
-        settings.page = swipeView.currentIndex
+        windowsettings.setValue("x", window.x)
+        windowsettings.setValue("y", window.y)
+        windowsettings.setValue("width", window.width)
+        windowsettings.setValue("height", window.height)
+        windowsettings.setValue("page", swipeView.currentIndex)
     }
 
     onClosing: storeSettings()
@@ -40,7 +29,7 @@ ApplicationWindow {
     SwipeView {
         id: swipeView
 
-        currentIndex: settings.page
+        currentIndex: windowsettings.value("page", 0)
         anchors.fill: parent
 
         Item {

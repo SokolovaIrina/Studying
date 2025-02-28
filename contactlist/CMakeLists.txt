@@ -11,6 +11,7 @@ qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(contactlistexample WIN32 MACOSX_BUNDLE
     contactmodel.cpp contactmodel.h
+    AppSettings.h
     main.cpp
 )
 
