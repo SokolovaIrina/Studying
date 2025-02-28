@@ -141,6 +141,17 @@ ApplicationWindow {
                     axisX: axisX
                     axisY: axisY
                 }
+
+                MouseArea {
+                    id: chartMouseArea
+                    anchors.fill: parent
+                    propagateComposedEvents: true
+                    acceptedButtons: Qt.LeftButton
+                    onClicked:{
+                        console.log("Chart: " + chartView.mapToValue(mouse, series)) // IT WORKS!
+                    }
+                    hoverEnabled: false
+                }
             }
 
             RoundButton {
