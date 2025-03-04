@@ -135,24 +135,81 @@ ApplicationWindow {
                     axisY: axisY
                 }
 
-                ScatterSeries {
-                    id: pointSeries
-                    markerShape: ScatterSeries.MarkerShapeRotatedRectangle
-                    color: "red"
-                }
-
                 MouseArea {
                     id: chartMouseArea
                     anchors.fill: parent
                     propagateComposedEvents: true
                     acceptedButtons: Qt.LeftButton
                     onClicked:{
-                        var newPoint = chartView.mapToValue(mouse, series) // mouse position
-                        console.log("Chart: " + newPoint)
-                        pointSeries.clear()
-                        pointSeries.append(newPoint.x, newPoint.y)
+                        var mousePoint = mouse // mouse position
+                        var chartPoint = chartView.mapToValue(mousePoint, series) // mouse position in chart coordinates
+                        console.log("Chart: " + chartPoint)
+                        canvas.xx = mousePoint.x
+                        canvas.yy = mousePoint.y
+                        canvas.xval = chartPoint.x
+                        canvas.yval = chartPoint.y
+                        canvas.requestPaint()
                     }
                     hoverEnabled: false
+                }
+
+                Canvas {
+                    id: canvas
+                    anchors.fill: parent
+
+                    property double xx: 0.0
+                    property double yy: 0.0
+                    property double xval: 0.0
+                    property double yval: 0.0
+
+                    onPaint: {
+                        var ctx = getContext("2d");
+                        ctx.clearRect(0, 0, parent.width, parent.height)
+
+                        if (
+                                (xx > chartView.plotArea.x) && (yy > chartView.plotArea.y)
+                                && (xx < (chartView.plotArea.x + chartView.plotArea.width)) && (yy < chartView.plotArea.y + chartView.plotArea.height)
+                            ) {
+                            ctx.strokeStyle = "#CCFF0000"
+                            ctx.lineWidth = 2
+
+                            // cross
+                            ctx.beginPath()
+                            ctx.moveTo(xx-5, yy-5)
+                            ctx.lineTo(xx+5, yy+5)
+                            ctx.stroke()
+                            ctx.beginPath()
+                            ctx.moveTo(xx-5, yy+5)
+                            ctx.lineTo(xx+5, yy-5)
+                            ctx.stroke()
+
+                            // X value on axis
+                            ctx.beginPath()
+                            ctx.moveTo(chartView.x + xx, chartView.plotArea.y + chartView.plotArea.height + 5)
+                            ctx.lineTo(chartView.x + xx, chartView.plotArea.y + chartView.plotArea.height - 5)
+                            ctx.stroke()
+
+                            // X value label
+                            ctx.beginPath()
+                            ctx.fillStyle = "red";
+                            ctx.textAlign = "center";
+                            ctx.fillText(xval.toFixed(2), chartView.x + xx, chartView.plotArea.y + chartView.plotArea.height + 17);
+                            ctx.restore();
+
+                            // Y value on axis
+                            ctx.beginPath()
+                            ctx.moveTo(chartView.plotArea.x + 5, chartView.y + yy)
+                            ctx.lineTo(chartView.plotArea.x - 5, chartView.y + yy)
+                            ctx.stroke()
+
+                            // Y value label
+                            ctx.beginPath()
+                            ctx.fillStyle = "red";
+                            ctx.textAlign = "right";
+                            ctx.fillText(yval.toFixed(2), chartView.plotArea.x - 7, chartView.y + yy + 4);
+                            ctx.restore();
+                        }
+                    }
                 }
             }
 

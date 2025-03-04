@@ -2,5 +2,4 @@
 
 ## TODO:
 	- chose location for saving image of chart
-	- show clicked dot as cross
-	- show clicked dot position on axes
+	- rescale if new position is out the range
