@@ -227,6 +227,23 @@ ApplicationWindow {
                 }
             }
         }
+        Item {
+            id: fourthPage
+
+            Rectangle {
+                anchors.centerIn: parent
+                width: parent.width / 2
+                height: parent.height / 2
+                color: "darkgreen"
+
+                RotationAnimation on rotation {
+                    loops: Animation.Infinite
+                    duration: 10000
+                    from: 0
+                    to: 360
+                }
+            }
+        }
     }
 
     PageIndicator {
