@@ -51,14 +51,6 @@ ApplicationWindow {
                 }
             }
 
-            ConfirmDeletionDialog {
-                id: confirmDeletionDialog
-                onAccepted: function() {
-                    contactView.model.remove(contactPage.currentContact)
-                    series.remove(contactPage.currentContact)
-                }
-            }
-
             Menu {
                 id: contactMenu
                 x: parent.width / 2 - width / 2
@@ -122,6 +114,7 @@ ApplicationWindow {
                 title: "Positions"
                 anchors.fill: parent
                 antialiasing: true
+                legend.visible: false
 
                 ValueAxis {
                     id: axisX
@@ -142,13 +135,22 @@ ApplicationWindow {
                     axisY: axisY
                 }
 
+                ScatterSeries {
+                    id: pointSeries
+                    markerShape: ScatterSeries.MarkerShapeRotatedRectangle
+                    color: "red"
+                }
+
                 MouseArea {
                     id: chartMouseArea
                     anchors.fill: parent
                     propagateComposedEvents: true
                     acceptedButtons: Qt.LeftButton
                     onClicked:{
-                        console.log("Chart: " + chartView.mapToValue(mouse, series)) // IT WORKS!
+                        var newPoint = chartView.mapToValue(mouse, series) // mouse position
+                        console.log("Chart: " + newPoint)
+                        pointSeries.clear()
+                        pointSeries.append(newPoint.x, newPoint.y)
                     }
                     hoverEnabled: false
                 }
@@ -196,6 +198,14 @@ ApplicationWindow {
 
             onRowsRemoved: console.log("REMOVED")
             onDataChanged: console.log("CHANGED")
+    }
+
+    ConfirmDeletionDialog {
+        id: confirmDeletionDialog
+        onAccepted: function() {
+            contactView.model.remove(contactPage.currentContact)
+            series.remove(contactPage.currentContact)
+        }
     }
 
     function loadSeries() {
